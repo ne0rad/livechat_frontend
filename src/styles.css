@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #4177eb;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.main {
+  min-width: 300px;
+}
+
+.chat {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 4rem;
+  color: #f0f0f0;
+}
+
+.message-form {
+  position: fixed;
+  display: inline;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  min-width: 300px;
+}
+
+.message-input {
+  font-family: "Ubuntu", sans-serif;
+  background-color: #f3f3f3;
+  display: inline;
+  width: calc(100% - 100px - 2rem);
+  margin: 0;
+  padding: 1rem;
+  font-size: 15px;
+  box-shadow: inset 0 0 0 1px black;
+  border: none;
+  border-radius: 0;
+}
+
+.message-input:focus {
+  outline: none;
+  background-color: #ffffff;
+}
+
+.message-btn {
+  font-family: "Ubuntu", sans-serif;
+  display: inline;
+  background-color: #11337a;
+  color: #f0f0f0;
+  font-size: 15px;
+  width: 100px;
+  border: none;
+  box-shadow: inset 0 0 0 1px black;
+  margin: 0;
+  padding: 1rem;
+}
+
+.message-btn:hover {
+  background-color: #254996;
+}
+
+.message {
+  padding: 4px 1rem 4px 1rem;
+  width: calc(100% - 2rem);
+}
+
+.message-time {
+  font-size: 12px;
+}
+
+.message-text {
+  font-size: 16px;
+}

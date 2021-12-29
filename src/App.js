@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+import Chat from "./components/Chat";
+import NewMessageForm from "./components/NewMessageForm";
+const ENDPOINT = "http://localhost:4000";
+const socket = socketIOClient(ENDPOINT);
 
 function App() {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    socket.on("chat", newMessage => {
+      const messagesTemp = [...messages];
+      if (messagesTemp.length > 100) messagesTemp.splice(0, 1);
+      messagesTemp.push(newMessage);
+      setMessages(messagesTemp);
+    });
+    return () => {
+      socket.off("chat");
+    }
+  }, [messages]);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+
+      <Chat messages={messages} />
+      <NewMessageForm socket={socket} />
+
     </div>
   );
 }
