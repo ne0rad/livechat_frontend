@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { SocketContext } from "../socket/socket";
 
-function NewMessageForm({ socket }) {
+function NewMessageForm() {
 
     const [message, setMessage] = useState("");
 
+    const socket = useContext(SocketContext);
     const inputRef = useRef(null);
 
     function sumbmitMessage(e) {

@@ -17,7 +17,10 @@ function Chat({ messages }) {
             {
                 messages.map((msg, index) => {
                     return (
-                        <Message key={index} message={msg} />
+                        <div className="message-wrap" key={"div" + index}>
+                            <Message key={index} message={msg} />
+                            {index !== messages.length - 1 && (<hr key={"hr" + index}/>)}
+                        </div>
                     )
                 })
             }

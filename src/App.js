@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
+import { SocketContext, socket } from "./socket/socket";
 import Chat from "./components/Chat";
 import NewMessageForm from "./components/NewMessageForm";
-const ENDPOINT = "http://localhost:4000";
-const socket = socketIOClient(ENDPOINT);
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -21,14 +19,17 @@ function App() {
   }, [messages]);
 
 
-
   return (
-    <div className="main">
+    <SocketContext.Provider value={socket}>
 
-      <Chat messages={messages} />
-      <NewMessageForm socket={socket} />
+      <div className="main">
 
-    </div>
+        <Chat messages={messages} />
+        <NewMessageForm />
+
+      </div>
+
+    </SocketContext.Provider>
   );
 }
 
