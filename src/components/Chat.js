@@ -1,8 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+//import { SocketContext } from "../socket/socket";
 import Message from "./Message";
 
-function Chat({ messages }) {
+function Chat({ user }) {
+
+    const [messages, setMessages] = useState([{ message: "Hello testing" }, { message: "You too!" }]);
+    const [messageInput, setMessageInput] = useState("");
+
     const messageEndRef = useRef(null);
+    //const socket = useContext(SocketContext);
+
 
     useEffect(() => {
         scrollToBottom();
@@ -12,19 +19,36 @@ function Chat({ messages }) {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
+    function sendMessage() {
+        if (!messageInput) return;
+        setMessages([...messages, { message: messageInput }]);
+        setMessageInput("");
+    }
+
     return (
         <div className="chat">
-            {
-                messages.map((msg, index) => {
-                    return (
-                        <div className="message-wrap" key={"div" + index}>
-                            <Message key={index} message={msg} />
-                            {index !== messages.length - 1 && (<hr key={"hr" + index}/>)}
-                        </div>
-                    )
-                })
-            }
-            <div ref={messageEndRef}></div>
+            <p className="text-label">Room ID: <b>{user.roomID}</b> | Username: <b>{user.username}</b></p>
+            <div className="chatbox">
+                {
+                    messages.map((msg, index) => {
+                        let isLast = index === messages.length - 1;
+                        return (
+                            <Message key={index} message={msg} isLast={isLast} />
+                        )
+                    })
+                }
+                <div ref={messageEndRef}></div>
+            </div>
+            <div className="newMessage">
+                <input
+                    type="text"
+                    name="newMessage"
+                    autoFocus={true}
+                    value={messageInput}
+                    onChange={(e) => setMessageInput(e.currentTarget.value)}
+                />
+                <button onClick={sendMessage}>Send</button>
+            </div>
         </div>
     )
 }
