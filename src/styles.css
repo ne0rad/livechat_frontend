@@ -52,10 +52,40 @@ body {
   box-shadow: 0 0 0 2px var(--color);
 }
 
+.chat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 0.3em;
+  margin: 1em;
+  padding: 1.5em;
+  width: 100%;
+  max-width: 500px;
+  min-width: 200px;
+  background-color: var(--bg-color-2);
+  box-shadow: 0 0 0 2px var(--color);
+}
+
+.chatbox {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-radius: 0.3em;
+  margin: 1.5em 0 0 0;
+  padding: 0.5em;
+  width: 100%;
+  height: 60vh;
+  min-height: 300px;
+  overflow-y: scroll;
+  background-color: #f0f0f0;
+  box-shadow: 0 0 0 1px black;
+}
+
 .container {
   width: 100%;
   height: 100%;
-  padding: 0.5em;
 }
 
 .text-title {
@@ -75,6 +105,11 @@ body {
   font-size: 12px;
 }
 
+.message {
+  color:#2e67bd;
+  font-size: 14px;
+}
+
 .btn {
   border: none;
   font-family: "Ubuntu", sans-serif;
@@ -85,6 +120,8 @@ body {
   color: var(--btn-color);
   background-color: var(--btn-bg);
   border: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .btn:hover {
