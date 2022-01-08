@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 //import { SocketContext } from "../socket/socket";
 import Message from "./Message";
 
-function Chat({ user }) {
+function Chat({ user, disconnect }) {
 
-    const [messages, setMessages] = useState([{ message: "Hello testing" }, { message: "You too!" }]);
+    const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState("");
 
     const messageEndRef = useRef(null);
@@ -21,13 +21,14 @@ function Chat({ user }) {
 
     function sendMessage() {
         if (!messageInput) return;
-        setMessages([...messages, { message: messageInput }]);
+        setMessages([...messages, { message: messageInput, username: user.username }]);
         setMessageInput("");
     }
 
     return (
         <div className="chat">
             <p className="text-label">Room ID: <b>{user.roomID}</b> | Username: <b>{user.username}</b></p>
+            <button className="btn btn-disconnect" onClick={disconnect}>Disconnect</button>
             <div className="chatbox">
                 {
                     messages.map((msg, index) => {
@@ -40,14 +41,23 @@ function Chat({ user }) {
                 <div ref={messageEndRef}></div>
             </div>
             <div className="newMessage">
-                <input
-                    type="text"
-                    name="newMessage"
-                    autoFocus={true}
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.currentTarget.value)}
-                />
-                <button onClick={sendMessage}>Send</button>
+                <form
+                    className="form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        sendMessage();
+                    }}
+                >
+                    <input
+                        className="input input-newMessage"
+                        type="text"
+                        name="newMessage"
+                        autoFocus={true}
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.currentTarget.value)}
+                    />
+                    <button className="btn btn-send" type="submit" onClick={(e) => e.currentTarget.blur()}>Send</button>
+                </form>
             </div>
         </div>
     )
