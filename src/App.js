@@ -38,12 +38,16 @@ function App() {
     setUser(userData);
   }
 
+  function disconnect() {
+    setUser();
+  }
+
   return (
     <SocketContext.Provider value={socket}>
       <div className="main">
         {
           user ?
-            (<Chat user={user}/>)
+            (<Chat user={user} disconnect={disconnect}/>)
             :
             (<Home updateUser={updateUser}/>)
         }
