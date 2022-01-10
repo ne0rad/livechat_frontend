@@ -1,19 +1,29 @@
-import { useState, useEffect, useRef } from "react";
-//import { SocketContext } from "../socket/socket";
+import { useState, useEffect, useRef, useContext } from "react";
+import { SocketContext } from "../socket/socket";
 import Message from "./Message";
 
 function Chat({ user, disconnect }) {
 
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const messageEndRef = useRef(null);
-    //const socket = useContext(SocketContext);
+    const socket = useContext(SocketContext);
 
 
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+        socket.on('message', message => {
+            setMessages([...messages, message]);
+        });
+        socket.on('notification', notification => {
+            setMessages([...messages, { message: notification, username: "SYS", type: 'notification' }]);
+        })
+    }, [socket, messages]);
 
     function scrollToBottom() {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -21,8 +31,18 @@ function Chat({ user, disconnect }) {
 
     function sendMessage() {
         if (!messageInput) return;
-        setMessages([...messages, { message: messageInput, username: user.username }]);
-        setMessageInput("");
+        setLoading(true);
+        socket.emit('sendMessage', messageInput, error => {
+            if (error) {
+                setLoading(false);
+                return;
+            } else {
+                setLoading(false);
+                setMessages([...messages, { message: messageInput, username: user.username }]);
+                setMessageInput("");
+            }
+
+        })
     }
 
     return (
@@ -56,7 +76,12 @@ function Chat({ user, disconnect }) {
                         value={messageInput}
                         onChange={(e) => setMessageInput(e.currentTarget.value)}
                     />
-                    <button className="btn btn-send" type="submit" onClick={(e) => e.currentTarget.blur()}>Send</button>
+                    <button
+                        className="btn btn-send"
+                        type="submit"
+                        onClick={(e) => e.currentTarget.blur()}
+                        disabled={loading}
+                    >Send</button>
                 </form>
             </div>
         </div>
