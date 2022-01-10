@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/livechat-frontend/static/css/main.bcfbf059.css",
+    "main.js": "/livechat-frontend/static/js/main.44cae0b5.js",
+    "index.html": "/livechat-frontend/index.html",
+    "main.bcfbf059.css.map": "/livechat-frontend/static/css/main.bcfbf059.css.map",
+    "main.44cae0b5.js.map": "/livechat-frontend/static/js/main.44cae0b5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bcfbf059.css",
+    "static/js/main.44cae0b5.js"
+  ]
+}
