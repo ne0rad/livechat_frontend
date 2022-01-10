@@ -1,9 +1,36 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SocketContext } from "../socket/socket";
 
 function Home({ updateUser }) {
 
     const [username, setUsername] = useState("");
     const [roomID, setRoomID] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+
+    const socket = useContext(SocketContext);
+
+    function handleSubmit(e) {
+        setLoading(true);
+        e.preventDefault();
+        try {
+            socket.emit('join', { username, roomID }, error => {
+                if (error) {
+                    setError(error);
+                    setLoading(false);
+                    return;
+                }
+                else {
+                    setError();
+                    setLoading(false);
+                    updateUser({ username: username, roomID: roomID });
+                    return;
+                }
+            })
+        } catch {
+            setError("Could not connect.")
+        }
+    }
 
     return (
         <div className="home">
@@ -11,10 +38,7 @@ function Home({ updateUser }) {
             <br />
             <form
                 className="container"
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    updateUser({username: username, roomID: roomID});
-                }}
+                onSubmit={handleSubmit}
             >
                 <span className="text-label">Username: </span>
                 <br />
@@ -40,7 +64,8 @@ function Home({ updateUser }) {
                 />
                 <br />
                 <br />
-                <button className="btn btn-connect" type="submit">Connect</button>
+                {error && (<p className="text-error">{error}</p>)}
+                <button className="btn btn-connect" type="submit" disabled={loading}>Join</button>
             </form>
             <br />
             <p className="text-small">* room ID can be any word or phrase.</p>
