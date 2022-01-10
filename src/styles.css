@@ -123,6 +123,18 @@ body {
 .text-message {
   font-size: 15px;
 }
+.text-notification {
+  font-size: 15px;
+  color: #104600;
+}
+
+.text-error {
+  color: tomato;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 
 .message {
   color:#2e67bd;
@@ -144,7 +156,7 @@ body {
   transition: background-color 0.2s;
 }
 
-.btn:hover {
+.btn:hover:enabled {
   background-color: var(--btn-bg-hover);
 }
 
@@ -153,8 +165,12 @@ body {
   box-shadow: 0 0 0 3px var(--focus-color);
 }
 
-.btn:active {
+.btn:active:enabled {
   box-shadow: 0 0 0 3px var(--focus-color);
+}
+
+btn:disabled {
+  background-color: #797979;
 }
 
 .btn-connect {
@@ -164,6 +180,7 @@ body {
 .btn-send {
   margin: 0;
   font-size: 14px;
+  width: 5em;
 }
 
 .btn-disconnect {
