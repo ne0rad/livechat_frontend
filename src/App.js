@@ -6,18 +6,6 @@ import Chat from "./components/Chat";
 function App() {
   const [user, setUser] = useState();
 
-  // useEffect(() => {
-  //   socket.on("chat", newMessage => {
-  //     const messagesTemp = [...messages];
-  //     if (messagesTemp.length > 100) messagesTemp.splice(0, 1);
-  //     messagesTemp.push(newMessage);
-  //     setMessages(messagesTemp);
-  //   });
-  //   return () => {
-  //     socket.off("chat");
-  //   }
-  // }, [messages]);
-
   // Check if user has any data in local storage.
   // Update app state if they do.
   useEffect(() => {
@@ -34,11 +22,12 @@ function App() {
   }, []);
 
   function updateUser(userData) {
-    if(!userData || !userData.username || !userData.roomID) return;
+    if(!userData.username || !userData.roomID) return;
     setUser(userData);
   }
 
   function disconnect() {
+    socket.emit('disconnectUser');
     setUser();
   }
 
