@@ -11,6 +11,7 @@ function Home({ updateUser }) {
     const socket = useContext(SocketContext);
 
     function handleSubmit(e) {
+        if(loading) return;
         setLoading(true);
         e.preventDefault();
         try {
@@ -28,7 +29,8 @@ function Home({ updateUser }) {
                 }
             })
         } catch {
-            setError("Could not connect.")
+            setError("Could not connect.");
+            setLoading(false);
         }
     }
 
