@@ -22,7 +22,11 @@ function Chat({ user, disconnect }) {
         });
         socket.on('notification', notification => {
             setMessages([...messages, { message: notification, username: "SYS", type: 'notification' }]);
-        })
+        });
+        return () => {
+            socket.off('message');
+            socket.off('notification');
+        }
     }, [socket, messages]);
 
     function scrollToBottom() {
@@ -64,6 +68,7 @@ function Chat({ user, disconnect }) {
                 <form
                     className="form"
                     onSubmit={(e) => {
+                        if(loading) return;
                         e.preventDefault();
                         sendMessage();
                     }}
