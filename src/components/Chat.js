@@ -36,16 +36,16 @@ function Chat({ user, disconnect }) {
     function sendMessage() {
         if (!messageInput) return;
         setLoading(true);
+        setMessageInput("");
+        setMessages([...messages, { message: messageInput, username: user.username }]);
         socket.emit('sendMessage', messageInput, error => {
             if (error) {
                 setLoading(false);
+                setMessages([...messages, { message: "Error sending message", username: "SYS", type: 'notification' }]);
                 return;
             } else {
                 setLoading(false);
-                setMessages([...messages, { message: messageInput, username: user.username }]);
-                setMessageInput("");
             }
-
         })
     }
 
