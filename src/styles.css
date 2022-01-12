@@ -191,7 +191,7 @@ body {
   background-color: #aa0a0a;
 }
 
-.btn-disconnect:hover {
+.btn-disconnect:hover:enabled {
   background-color: #be0000;
 }
 
