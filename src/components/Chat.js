@@ -30,7 +30,7 @@ function Chat({ user, disconnect }) {
     }, [socket, messages]);
 
     function scrollToBottom() {
-        messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        messageEndRef.current?.scrollIntoView();
     }
 
     function sendMessage() {
@@ -68,7 +68,7 @@ function Chat({ user, disconnect }) {
                 <form
                     className="form"
                     onSubmit={(e) => {
-                        if(loading) return;
+                        if (loading) return;
                         e.preventDefault();
                         sendMessage();
                     }}
