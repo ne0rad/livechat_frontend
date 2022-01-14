@@ -79,7 +79,7 @@ body {
   padding: 0.7em 0.3em;
   width: calc(100% - 0.8em);
   height: 40vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: #f0f0f0;
   border: 1px solid black;
 }
@@ -137,7 +137,7 @@ body {
 }
 
 .message {
-  color:#2e67bd;
+  color:#0f4daa;
   width: 100%;
   word-break: break-all;
 }
