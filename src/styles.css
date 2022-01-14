@@ -139,7 +139,7 @@ body {
 .message {
   color:#0f4daa;
   width: 100%;
-  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .btn {
