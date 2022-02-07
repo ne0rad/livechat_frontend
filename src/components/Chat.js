@@ -34,7 +34,7 @@ function Chat({ user, disconnect }) {
     }
 
     function sendMessage() {
-        if (!messageInput) return;
+        if (!messageInput || loading) return;
         setLoading(true);
         setMessageInput("");
         setMessages([...messages, { message: messageInput, username: user.username }]);
